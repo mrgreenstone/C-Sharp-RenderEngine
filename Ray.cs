@@ -3,17 +3,22 @@ namespace RenderEngine {
         public Ray() : base() {}
         public Ray(Vector porigin, Vector pdirection) : base(porigin, pdirection) {}
 
-        public bool Collides(Sphere sphere) {
-            double cx = sphere.origin.x;
-            double cy = sphere.origin.y;
-            double cz = sphere.origin.z;
-            double r = sphere.radius;
-            Vector oc = origin-sphere.origin;
-            double a = origin.length*origin.length;
-            double b = 2*oc.dot(direction);
-            double c = oc.length*oc.length - r*r;
-            double discriminant = b*b - 4*a*c;
-            return (discriminant>0);
+        public Vector[] Collides(Sphere sphere) {
+            double xc = sphere.origin.x;
+            double yc = sphere.origin.y;
+            double zc = sphere.origin.z;
+            double x0 = origin.x;
+            double y0 = origin.y;
+            double z0 = origin.z;
+            double x1 = origin.x + direction.x;
+            double y1 = origin.y + direction.y;
+            double z1 = origin.z + direction.z;
+            double a = (x0-xc) * (x0-xc) + (y0-yc) * (y0-yc) + (z0-zc) * (z0-zc) - r*r;
+            double b = (x0-x1) * (x0-x1) + (y0-y1) * (y0-y1) + (z0-z1) * (z0-z1);
+            double c = (x1-xc) * (x1-xc) + (y1-yc) * (y1-yc) + (z1-zc) * (z1-zc) - a - b - r * r;
+            double t0 = - c/b/2 - Math.Sqrt((c/b/2) * (c/b/2) - a/b);
+            double t1 = - c/b/2 + Math.Sqrt((c/b/2) * (c/b/2) - a/b);
+            
         }
     }
 }

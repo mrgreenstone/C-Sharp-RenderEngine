@@ -4,6 +4,7 @@ namespace RenderEngine {
         public Ray(Vector porigin, Vector pdirection) : base(porigin, pdirection) {}
 
         public Vector[] Collides(Sphere sphere) {
+            double r = sphere.radius;
             double xc = sphere.origin.x;
             double yc = sphere.origin.y;
             double zc = sphere.origin.z;
@@ -20,11 +21,23 @@ namespace RenderEngine {
                 return new Vector[] {};
             } else if ((c/b/2) * (c/b/2) - a/b == 0) {
                 double t = - c/b/2;
-                return new Vector[] {at(t)};
+                if (r > 0) {
+                    return new Vector[] {at(t)};
+                } else {
+                    return new Vector[] {};
+                }
             } else {
                 double t0 = - c/b/2 - Math.Sqrt((c/b/2) * (c/b/2) - a/b);
                 double t1 = - c/b/2 + Math.Sqrt((c/b/2) * (c/b/2) - a/b);
-                return new Vector[] {at(t0), at(t1)};
+                if (t0 > 0 && t1 > 0) {
+                    return new Vector[] {at(t0), at(t1)};
+                } else if (t0 > 0) {
+                    return new Vector[] {at(t0)};
+                } else if (t1 > 0) {
+                    return new Vector[] {at(t1)};
+                } else {
+                    return new Vector[] {};
+                }
             }
             
             

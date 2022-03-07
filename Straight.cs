@@ -11,7 +11,7 @@ namespace RenderEngine {
             _direction = pdirection;
         }
         public Vector at(double t) {
-            return origin+t*direction;
+            return origin+direction*t;
         }
         public Vector origin{
             get => _origin; set => _origin = value;

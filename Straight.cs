@@ -10,6 +10,9 @@ namespace RenderEngine {
             _origin = porigin;
             _direction = pdirection;
         }
+        public Vector at(double t) {
+            return origin+t*direction;
+        }
         public Vector origin{
             get => _origin; set => _origin = value;
         }

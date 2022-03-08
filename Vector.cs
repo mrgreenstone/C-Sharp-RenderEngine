@@ -39,6 +39,10 @@ namespace RenderEngine {
         public double angle(Vetor to) {
             return Math.Acos(dot(to)/(_length*to.length))/Math.PI;
         }
+        public Vector reflectOn(Vector on) {
+            on.length = 1;
+            return this-on*dot(on)*2;
+        }
         public static Vector operator +(Vector a, Vector b) {
             return new Vector(a.x+b.x, a.y+b.y, a.z+b.z);
         }

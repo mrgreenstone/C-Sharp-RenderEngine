@@ -26,22 +26,23 @@ namespace RenderEngine {
             return new double[] {_x, _y, _z};
         }
         private void setLength(double plength) {
-            _x=_x*plength/length;
-            _y=_y*plength/length;
-            _z=_z*plength/length;
+            double newlength = plength/length;
+            x *= newlength;
+            y *= newlength;
+            z *= newlength;
         }
-        public double length{
+        public double length {
             get => Math.Sqrt(_x*_x + _y*_y + _z*_z); set => setLength(value);
         }
         public double dot(Vector to) {
             return _x*to.x+_y*to.y+_z*to.z;
         }
-        public double angle(Vetor to) {
-            return Math.Acos(dot(to)/(_length*to.length))/Math.PI;
+        public double angle(Vector to) {
+            return Math.Acos(dot(to)/(length*to.length))/Math.PI;
         }
         public Vector reflectOn(Vector on) {
             on.length = 1;
-            return this-on*dot(on)*2;
+            return this-on*this.dot(on)*2;
         }
         public static Vector operator +(Vector a, Vector b) {
             return new Vector(a.x+b.x, a.y+b.y, a.z+b.z);
